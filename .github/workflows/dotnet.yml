@@ -28,4 +28,4 @@ jobs:
         run: dotnet test --verbosity normal
 
       - name: Run application
-        run: dotnet run --project NinetyOneAssessment.Core.csproj
+        run: dotnet run --project NinetyOneAssessment.Core/NinetyOneAssessment.Core.csproj
