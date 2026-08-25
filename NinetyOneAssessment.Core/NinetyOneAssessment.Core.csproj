@@ -5,6 +5,7 @@
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>Caleb_Sewcharran_Ninety_One_Assessment</RootNamespace>
     </PropertyGroup>
 
 </Project>

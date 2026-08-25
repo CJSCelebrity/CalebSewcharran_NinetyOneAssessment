@@ -1,6 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caleb_Sewcharran_Ninety_One_Assessment", "Caleb_Sewcharran_Ninety_One_Assessment\Caleb_Sewcharran_Ninety_One_Assessment.csproj", "{CCD045FE-95EC-44CF-971A-2F1E88FD1FBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinetyOneAssessment.Core", "NinetyOneAssessment.Core\NinetyOneAssessment.Core.csproj", "{CCD045FE-95EC-44CF-971A-2F1E88FD1FBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinetyOneAssessment.Infrastructure", "NinetyOneAssessment.Infrastructure\NinetyOneAssessment.Infrastructure.csproj", "{4847DE55-A65F-4223-8F8A-949BFA6E16D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinetyOneAssessment.Tests", "NinetyOneAssessment.Tests\NinetyOneAssessment.Tests.csproj", "{184991A9-3CE8-409B-8D94-66F50CDC306E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinetyOneAssessment.Application", "NinetyOneAssessment.Application\NinetyOneAssessment.Application.csproj", "{65E97242-E165-4B4B-816E-BF8DCC3080C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +18,17 @@ Global
 		{CCD045FE-95EC-44CF-971A-2F1E88FD1FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCD045FE-95EC-44CF-971A-2F1E88FD1FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCD045FE-95EC-44CF-971A-2F1E88FD1FBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4847DE55-A65F-4223-8F8A-949BFA6E16D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4847DE55-A65F-4223-8F8A-949BFA6E16D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4847DE55-A65F-4223-8F8A-949BFA6E16D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4847DE55-A65F-4223-8F8A-949BFA6E16D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{184991A9-3CE8-409B-8D94-66F50CDC306E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{184991A9-3CE8-409B-8D94-66F50CDC306E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{184991A9-3CE8-409B-8D94-66F50CDC306E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{184991A9-3CE8-409B-8D94-66F50CDC306E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65E97242-E165-4B4B-816E-BF8DCC3080C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65E97242-E165-4B4B-816E-BF8DCC3080C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65E97242-E165-4B4B-816E-BF8DCC3080C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65E97242-E165-4B4B-816E-BF8DCC3080C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
