@@ -3,14 +3,9 @@ using NinetyOneAssessment.Application.Models;
 
 namespace NinetyOneAssessment.Application.Services;
 
-/*
- * Once the data has been read, we can either modify them and place them in its own model and then display it to the console
- */
-
-
 public class CsvFileReaderService : IFileReader
 {
-    public List<string> ReadFile(string filePath)
+    public IReadOnlyList<Person> ReadFile(string filePath)
     {
         var personList = new List<Person>();
         var lines = File.ReadAllLines(filePath);
@@ -23,21 +18,19 @@ public class CsvFileReaderService : IFileReader
             var values = line.Split(',');
             personList.Add(new Person
             {
-                Firstname =  values[0].Trim(),
-                Secondname =  values[1].Trim(),
+                Fullname = string.Concat(values[0].Trim(), " ",values[1].Trim()),
                 Score = int.Parse(values[2].Trim())
             });
         }
         
-       
-        return new List<string>();
-        // string[] read;
-        // char[] seperators = [','];
-        //
-        // var streamReader = new StreamReader(filePath);
-        // var data = streamReader.ReadToEnd();
-        //
-        // return new List<string>(data.Split(seperators));
+        //Check if there are more than two top scorers
+        var maxScore =  personList.Max(p => p.Score);
+        var personsWithIdenticalScore = personList
+            .Where(p => p.Score == maxScore)
+            .OrderBy(person => person.Fullname)
+            .ToList();
+
+        return personsWithIdenticalScore;
     }
 
     public bool CanHandle(string fileExtension)

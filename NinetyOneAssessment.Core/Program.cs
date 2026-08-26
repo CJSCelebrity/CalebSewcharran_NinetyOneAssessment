@@ -7,7 +7,7 @@ using Serilog;
 
 class Program
 {
-    static Task<int> Main(string[] args)
+    static async Task<int> Main(string[] args)
     {
         Log.Information("Application starting up");
 
@@ -15,8 +15,9 @@ class Program
         var fileProcessingService = host.Services.GetRequiredService<IFileProcessingService>();
         var output = fileProcessingService.ProcessFile(args.FirstOrDefault());
         fileProcessingService.PrintFileContentToConsole(output);
+        await fileProcessingService.SaveFileContentAsync(@"C:\Users\User\projects\Caleb_Sewcharran_Ninety_One_Assessment\NinetyOneAssessment.Core\Output", output);
         //TODO: Update TaskFromResult to return fileProcessing result of 0 or 1
-        return Task.FromResult(0);
+        return await Task.FromResult(0);
     }
     
     static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -1,7 +1,9 @@
-﻿namespace NinetyOneAssessment.Application.Interfaces;
+﻿using NinetyOneAssessment.Application.Models;
+
+namespace NinetyOneAssessment.Application.Interfaces;
 
 public interface IFileReader
 {
-    List<string> ReadFile(string filePath); 
+    IReadOnlyList<Person> ReadFile(string filePath); 
     bool CanHandle(string fileExtension); 
 }

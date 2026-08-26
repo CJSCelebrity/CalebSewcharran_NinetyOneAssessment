@@ -8,8 +8,7 @@ public class FileReaderFactory : IFileReaderFactory
     private readonly List<IFileReader> _readers = new()
     {
         new TextFileReaderService(),
-        new CsvFileReaderService(),
-        new ExcelFileReaderService()
+        new CsvFileReaderService()
     };
     
     public IFileReader CreateFileReader(string path)

@@ -1,27 +1,13 @@
 ﻿using NinetyOneAssessment.Application.Interfaces;
+using NinetyOneAssessment.Application.Models;
 
 namespace NinetyOneAssessment.Application.Services;
 
 public class TextFileReaderService : IFileReader
 {
-    public List<string> ReadFile(string filePath)
+    public IReadOnlyList<Person> ReadFile(string filePath)
     {
-        var lines = File.ReadAllLines(filePath);
-        return lines
-            .Select(name => 
-            {
-                var parts = name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                return new 
-                { 
-                    FullName = name,
-                    LastName = parts[^1],
-                    GivenNames = string.Join(" ", parts[..^1])
-                };
-            })
-            .OrderBy(x => x.LastName)
-            .ThenBy(y => y.GivenNames)
-            .Select(z => z.FullName)
-            .ToList();
+        return new List<Person>();
     }
 
     public bool CanHandle(string fileExtension)

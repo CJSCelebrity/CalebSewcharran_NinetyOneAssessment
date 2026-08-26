@@ -2,7 +2,6 @@
 
 public record Person
 {
-    public string? Firstname { get; init; }
-    public string? Secondname { get; init; }
+    public string? Fullname { get; init; }
     public int Score { get; init; }
 }
