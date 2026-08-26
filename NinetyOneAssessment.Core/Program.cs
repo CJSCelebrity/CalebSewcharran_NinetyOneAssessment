@@ -1,67 +1,34 @@
-﻿
-
-/*
- * TODO: Move to DESIGN.md
- * The goal, is to take an input of a csv file. Then output the top scorers in the console.
- * It will need to include the mark as well associated with the top  scoreers.
- *
- * If there are two or more top scorers, then the program should show them in alphabetical order (LINQ)
- *  Ensure that the implementation parses the CSV file from string and not with libraries
- *
- * support multiple file types, txt, csv, xlsx 
- */
-
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NinetyOneAssessment.Application;
+using NinetyOneAssessment.Application.Interfaces;
 using NinetyOneAssessment.Application.LoggingConfiguration;
 using Serilog;
 
 class Program
 {
-    static async Task Main(string[] args)
+    static Task<int> Main(string[] args)
     {
-        var configuration = BuildConfiguration(args);
+        Log.Information("Application starting up");
+
+        var host = CreateHostBuilder(args).Build();
+        var fileProcessingService = host.Services.GetRequiredService<IFileProcessingService>();
+        fileProcessingService.ProcessFile(args[0]);
         
-        ConfigureLogging(configuration);
-
-        try
-        {
-            Log.Information("Application starting up");
-
-            var host = CreateHostBuilder(args, configuration).Build();
-
-            await host.RunAsync();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
-            throw;
-        }
-    }
-
-    private static IConfiguration BuildConfiguration(string[] args)
-    {
-        return new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: true)
-            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production"}.json", optional: true)
-            .AddEnvironmentVariables()
-            .AddCommandLine(args)
-            .Build();
-    }
-
-    private static void ConfigureLogging(IConfiguration configuration)
-    {
-        Log.Logger = SerilogConfiguration
-            .CreateLoggerConfiguration(configuration)
-            .CreateLogger();
+        //TODO: Update TaskFromResult to return fileProcessing result of 0 or 1
+        return Task.FromResult(0);
     }
     
-    static IHostBuilder CreateHostBuilder(string[] args, IConfiguration configuration) =>
+    static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
-            .UseSerilog()
+            .UseSerilog((context, loggerConfiguration) =>
+            {
+                Log.Logger = SerilogConfiguration
+                    .CreateLoggerConfiguration(context.Configuration)
+                    .CreateLogger();
+            })
             .ConfigureServices((context, services) =>
             {
-                services.AddApplicationServices(configuration);
+                services.AddApplicationServices(context.Configuration);
             });
 }

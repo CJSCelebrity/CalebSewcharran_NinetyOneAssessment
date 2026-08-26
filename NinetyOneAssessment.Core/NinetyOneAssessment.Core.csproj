@@ -25,4 +25,8 @@
       <ProjectReference Include="..\NinetyOneAssessment.Application\NinetyOneAssessment.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Output\" />
+    </ItemGroup>
+
 </Project>

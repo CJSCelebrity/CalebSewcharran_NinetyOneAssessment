@@ -1,6 +1,12 @@
-﻿namespace NinetyOneAssessment.Application.Services;
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NinetyOneAssessment.Application.Interfaces;
 
-public class FileParserService
+namespace NinetyOneAssessment.Application.Services;
+
+public class FileParserService(
+    IFileProcessingService fileProcessingService,
+    ILogger<FileParserService> logger,
+    IHostApplicationLifetime applicationLifetime)
 {
-    
 }
