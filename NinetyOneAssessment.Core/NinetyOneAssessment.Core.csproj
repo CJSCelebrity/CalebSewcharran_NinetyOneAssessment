@@ -29,4 +29,10 @@
       <Folder Include="Output\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Assets\TestData.csv">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

@@ -7,7 +7,7 @@ public class FileProcessingService(IFileReaderFactory factory) : IFileProcessing
     public List<string> ProcessFile(string filePath)
     {
         if (string.IsNullOrEmpty(filePath))
-            filePath = "NinetyOneAssessment.Core/Assets/TestData.csv";
+            filePath = @"C:\\Users\\User\\projects\\Caleb_Sewcharran_Ninety_One_Assessment\\NinetyOneAssessment.Core\\Assets\\TestData.csv";
         
         var reader = factory.CreateFileReader(filePath);
         return reader.ReadFile(filePath);

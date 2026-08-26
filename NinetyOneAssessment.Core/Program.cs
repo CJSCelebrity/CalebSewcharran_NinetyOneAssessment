@@ -13,7 +13,8 @@ class Program
 
         var host = CreateHostBuilder(args).Build();
         var fileProcessingService = host.Services.GetRequiredService<IFileProcessingService>();
-        fileProcessingService.ProcessFile(args.FirstOrDefault());
+        var output = fileProcessingService.ProcessFile(args.FirstOrDefault());
+        fileProcessingService.PrintFileContentToConsole(output);
         //TODO: Update TaskFromResult to return fileProcessing result of 0 or 1
         return Task.FromResult(0);
     }
