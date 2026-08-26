@@ -2,6 +2,6 @@
 
 public interface IFileProcessingService
 {
-    List<string> ProcessFile(string filePath);
+    List<string> ProcessFile(string? filePath);
     void PrintFileContentToConsole(List<string> results);
 }
