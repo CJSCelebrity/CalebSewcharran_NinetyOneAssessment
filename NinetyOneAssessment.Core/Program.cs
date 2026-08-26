@@ -11,10 +11,57 @@
  * support multiple file types, txt, csv, xlsx 
  */
 
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using NinetyOneAssessment.Application;
+using NinetyOneAssessment.Application.LoggingConfiguration;
+using Serilog;
+
 class Program
 {
     static async Task Main(string[] args)
     {
+        var configuration = BuildConfiguration(args);
         
+        ConfigureLogging(configuration);
+
+        try
+        {
+            Log.Information("Application starting up");
+
+            var host = CreateHostBuilder(args, configuration).Build();
+
+            await host.RunAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            throw;
+        }
     }
+
+    private static IConfiguration BuildConfiguration(string[] args)
+    {
+        return new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: true)
+            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production"}.json", optional: true)
+            .AddEnvironmentVariables()
+            .AddCommandLine(args)
+            .Build();
+    }
+
+    private static void ConfigureLogging(IConfiguration configuration)
+    {
+        Log.Logger = SerilogConfiguration
+            .CreateLoggerConfiguration(configuration)
+            .CreateLogger();
+    }
+    
+    static IHostBuilder CreateHostBuilder(string[] args, IConfiguration configuration) =>
+        Host.CreateDefaultBuilder(args)
+            .UseSerilog()
+            .ConfigureServices((context, services) =>
+            {
+                services.AddApplicationServices(configuration);
+            });
 }
