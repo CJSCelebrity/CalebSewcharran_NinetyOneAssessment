@@ -7,4 +7,5 @@ public interface IPersonRepository
     Task SaveAsync(IReadOnlyList<Person> people);
     Task<IReadOnlyList<Person>> GetByNameAsync(string firstName, string secondName);
     Task<IReadOnlyList<Person>> GetTopScorersAsync();
+    Task AddAsync(Person person);
 }

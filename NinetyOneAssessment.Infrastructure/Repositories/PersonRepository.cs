@@ -40,4 +40,10 @@ public class PersonRepository(ScoresDbContext context) : IPersonRepository
             .OrderBy(p => p.FullName, StringComparer.OrdinalIgnoreCase)
             .ToArray();
     }
+
+    public async Task AddAsync(Person person)
+    {
+        await context.People.AddAsync(person.ToEntity());
+        await context.SaveChangesAsync();
+    }
 }
