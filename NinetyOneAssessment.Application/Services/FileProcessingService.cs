@@ -17,9 +17,11 @@ public class FileProcessingService(ITopScorerService topScorerService, IFileRead
         return new ProcessingResult(topScorers, mapping.Failures);
     }
 
-    public async Task SaveFileContentAsync(string filePath, ProcessingResult results)
+    public async Task SaveFileContentAsync(string outputDirectory, ProcessingResult results)
     {
-        await using var outputFile = new StreamWriter(Path.Combine(filePath, "Top_Scorers.txt"));
+        Directory.CreateDirectory(outputDirectory);
+
+        await using var outputFile = new StreamWriter(Path.Combine(outputDirectory, "Top_Scorers.txt"));
         foreach (var item in results.TopScorers)
         {
             await outputFile.WriteAsync($"{item.FullName}\n");

@@ -22,7 +22,10 @@ public static class SerilogConfiguration
             .Enrich.WithProcessName()
             .Enrich.WithThreadId()
             .Enrich.WithProperty("ApplicationName", applicationName)
-            .WriteTo.Console(outputTemplate: 
+            .WriteTo.Console(
+                restrictedToMinimumLevel: LogEventLevel.Fatal,
+                standardErrorFromLevel: LogEventLevel.Verbose,
+                outputTemplate:
                 "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} " +
                 "{MachineName} {ProcessId} {ThreadId} {NewLine}{Exception}")
             .WriteTo.File(
