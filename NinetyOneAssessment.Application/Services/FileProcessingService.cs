@@ -14,7 +14,7 @@ public class FileProcessingService(ITopScorerService topScorerService, IFileRead
         var mapping = PersonMapper.Map(rows);
         var topScorers = topScorerService.GetTopScorers(mapping.People);
         
-        return new ProcessingResult(topScorers, mapping.Failures);
+        return new ProcessingResult(mapping.People, topScorers, mapping.Failures);
     }
 
     public async Task SaveFileContentAsync(string outputDirectory, ProcessingResult results)

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -6,6 +7,7 @@ using NinetyOneAssessment.Application.Exceptions;
 using NinetyOneAssessment.Application.Interfaces;
 using NinetyOneAssessment.Application.LoggingConfiguration;
 using NinetyOneAssessment.Infrastructure;
+using NinetyOneAssessment.Infrastructure.DbContexts;
 using Serilog;
 
 
@@ -91,15 +93,23 @@ class Program
         try
         {
             using var host = CreateHostBuilder().Build();
+            using var scope = host.Services.CreateScope();
 
             Log.Information("Application starting up. Reading {InputPath}", inputPath);
+            
+            var context = scope.ServiceProvider.GetRequiredService<ScoresDbContext>();
+            await context.Database.MigrateAsync();
 
-            var fileProcessingService = host.Services.GetRequiredService<IFileProcessingService>();
-            var consoleWriterService = host.Services.GetRequiredService<IConsoleWriterService>();
+            var fileProcessingService = scope.ServiceProvider.GetRequiredService<IFileProcessingService>();
+            var consoleWriterService = scope.ServiceProvider.GetRequiredService<IConsoleWriterService>();
+            var personRepository = scope.ServiceProvider.GetRequiredService<IPersonRepository>();
 
             var output = await fileProcessingService.ProcessAsync(inputPath);
             consoleWriterService.Write(output.TopScorers, output.Failures);
             await fileProcessingService.SaveFileContentAsync(outputDirectory, output);
+            
+            //Save to db
+            await personRepository.SaveAsync(output.People);
 
             Log.Information("Wrote {Count} top scorer(s) to {OutputDirectory}",
                 output.TopScorers.Count, outputDirectory);

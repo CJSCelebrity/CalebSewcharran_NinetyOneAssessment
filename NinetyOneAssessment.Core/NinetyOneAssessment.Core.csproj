@@ -9,6 +9,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.11" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.11" />
       <PackageReference Include="Microsoft.Extensions.Diagnostics" Version="10.0.11" />
@@ -27,7 +31,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Models\" />
       <Folder Include="Output\" />
     </ItemGroup>
 
@@ -35,9 +38,13 @@
       <None Update="Assets\TestData.csv">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="appsettings.json">
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="appsettings.json" />
+      <Content Include="appsettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+      </Content>
     </ItemGroup>
 
 </Project>
