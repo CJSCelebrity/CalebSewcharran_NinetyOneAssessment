@@ -4,7 +4,6 @@ namespace NinetyOneAssessment.Application.Interfaces;
 
 public interface IFileProcessingService
 {
-    IReadOnlyList<Person> ProcessFile(string? filePath);
-    void PrintFileContentToConsole(IReadOnlyList<Person> results);
-    Task SaveFileContentAsync(string filePath, IReadOnlyList<Person> results);
+    Task<ProcessingResult> ProcessAsync(string filePath);
+    Task SaveFileContentAsync(string filePath, ProcessingResult results);
 }

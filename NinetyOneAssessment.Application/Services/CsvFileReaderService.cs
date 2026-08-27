@@ -16,18 +16,20 @@ public class CsvFileReaderService : IFileReader
                 continue;
 
             var values = line.Split(',');
-            personList.Add(new Person
-            {
-                Fullname = string.Concat(values[0].Trim(), " ",values[1].Trim()),
-                Score = int.Parse(values[2].Trim())
-            });
+            
+            var person = new Person(
+                FirstName: values[0].Trim(),
+                SecondName: values[1].Trim(),
+                Score: int.Parse(values[2].Trim()));
+            
+            personList.Add(person);
         }
         
         //Check if there are more than two top scorers
         var maxScore =  personList.Max(p => p.Score);
         var personsWithIdenticalScore = personList
             .Where(p => p.Score == maxScore)
-            .OrderBy(person => person.Fullname)
+            .OrderBy(person => person.FullName)
             .ToList();
 
         return personsWithIdenticalScore;

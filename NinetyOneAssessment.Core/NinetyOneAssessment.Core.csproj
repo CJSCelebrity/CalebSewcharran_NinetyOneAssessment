@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\NinetyOneAssessment.Application\NinetyOneAssessment.Application.csproj" />
+      <ProjectReference Include="..\NinetyOneAssessment.Infrastructure\NinetyOneAssessment.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

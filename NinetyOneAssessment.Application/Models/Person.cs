@@ -1,7 +1,6 @@
 ﻿namespace NinetyOneAssessment.Application.Models;
 
-public record Person
+public record Person(string FirstName, string SecondName, int Score)
 {
-    public string? Fullname { get; init; }
-    public int Score { get; init; }
+    public string? FullName =>  $"{FirstName} {SecondName}";
 }

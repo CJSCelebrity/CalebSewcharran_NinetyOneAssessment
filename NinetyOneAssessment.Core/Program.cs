@@ -3,7 +3,17 @@ using Microsoft.Extensions.Hosting;
 using NinetyOneAssessment.Application;
 using NinetyOneAssessment.Application.Interfaces;
 using NinetyOneAssessment.Application.LoggingConfiguration;
+using NinetyOneAssessment.Infrastructure;
 using Serilog;
+
+
+/*
+ * Resolve refactoring issues
+ * Add in Db commands and calls
+ * Add in minimal api endpoints
+ * Update design docs
+ * Include a drawio diagram detailing the architecture
+ */
 
 class Program
 {
@@ -13,10 +23,13 @@ class Program
 
         var host = CreateHostBuilder(args).Build();
         var fileProcessingService = host.Services.GetRequiredService<IFileProcessingService>();
-        var output = fileProcessingService.ProcessFile(args.FirstOrDefault());
-        fileProcessingService.PrintFileContentToConsole(output);
+        var consoleWriterService = host.Services.GetRequiredService<IConsoleWriterService>();
+        
+        var output = await fileProcessingService.ProcessAsync(@"C:\\Users\\User\\projects\\Caleb_Sewcharran_Ninety_One_Assessment\\NinetyOneAssessment.Core\\Assets\\TestData.csv");
         await fileProcessingService.SaveFileContentAsync(@"C:\Users\User\projects\Caleb_Sewcharran_Ninety_One_Assessment\NinetyOneAssessment.Core\Output", output);
+        consoleWriterService.Write(output.TopScorers, output.Failures);
         //TODO: Update TaskFromResult to return fileProcessing result of 0 or 1
+        
         return await Task.FromResult(0);
     }
     
@@ -30,6 +43,7 @@ class Program
             })
             .ConfigureServices((context, services) =>
             {
+                services.AddInfrastructureServices(context.Configuration);
                 services.AddApplicationServices(context.Configuration);
             });
 }

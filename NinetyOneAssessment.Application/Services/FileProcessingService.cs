@@ -1,38 +1,38 @@
 ﻿using NinetyOneAssessment.Application.Interfaces;
+using NinetyOneAssessment.Application.Mappers;
 using NinetyOneAssessment.Application.Models;
+using NinetyOneAssessment.Infrastructure.Interfaces;
 
 namespace NinetyOneAssessment.Application.Services;
 
-public class FileProcessingService(IFileReaderFactory factory) : IFileProcessingService
+public class FileProcessingService(ITopScorerService topScorerService, IFileReaderService fileReaderService, ICsvParserService csvParser) : IFileProcessingService
 {
-    public IReadOnlyList<Person> ProcessFile(string filePath)
+    public async Task<ProcessingResult> ProcessAsync(string filePath)
     {
-        if (string.IsNullOrEmpty(filePath))
-            filePath = @"C:\\Users\\User\\projects\\Caleb_Sewcharran_Ninety_One_Assessment\\NinetyOneAssessment.Core\\Assets\\TestData.csv";
+        var fileData = await fileReaderService.ReadFile(filePath);
+        var rows = csvParser.Parse(fileData);
+        var mapping = PersonMapper.Map(rows);
+        var topScorers = topScorerService.GetTopScorers(mapping.People);
         
-        var reader = factory.CreateFileReader(filePath);
-        return reader.ReadFile(filePath);
-    }
-
-    public void PrintFileContentToConsole(IReadOnlyList<Person> results)
-    {
-        foreach (var item in results)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(item.Fullname);
-        }
-        
-        Console.WriteLine($"Score: {results.FirstOrDefault()?.Score}");
-        Console.ResetColor();
+        return new ProcessingResult(topScorers, mapping.Failures);
     }
     
-    public async Task SaveFileContentAsync(string filePath, IReadOnlyList<Person> results)
+    // public IReadOnlyList<Person> ProcessFile(string filePath)
+    // {
+    //     if (string.IsNullOrEmpty(filePath))
+    //         filePath = @"C:\\Users\\User\\projects\\Caleb_Sewcharran_Ninety_One_Assessment\\NinetyOneAssessment.Core\\Assets\\TestData.csv";
+    //     
+    //     var reader = factory.CreateFileReader(filePath);
+    //     return reader.ReadFile(filePath);
+    // }
+
+    public async Task SaveFileContentAsync(string filePath, ProcessingResult results)
     {
         await using var outputFile = new StreamWriter(Path.Combine(filePath, "Top_Scorers.txt"));
-        foreach (var item in results)
+        foreach (var item in results.TopScorers)
         {
-            await outputFile.WriteAsync($"{item.Fullname}\n");
+            await outputFile.WriteAsync($"{item.FullName}\n");
         }
-        await outputFile.WriteAsync("Score: " + results.FirstOrDefault()?.Score);
+        await outputFile.WriteAsync("Score: " + results.TopScorers.FirstOrDefault()?.Score);
     }
 }
