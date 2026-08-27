@@ -8,7 +8,8 @@ public class ScoresDbContextFactory : IDesignTimeDbContextFactory<ScoresDbContex
     public ScoresDbContext CreateDbContext(string[] args)
     {
         var options = new DbContextOptionsBuilder<ScoresDbContext>()
-            .UseSqlite("Data Source=scores.db")
+            .UseSqlite(SqliteConnectionStringResolver.Resolve(
+                SqliteConnectionStringResolver.DefaultConnectionString))
             .Options;
         
         return new ScoresDbContext(options);

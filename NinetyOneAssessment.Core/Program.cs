@@ -176,6 +176,7 @@ class Program
 
     static IHostBuilder CreateHostBuilder() =>
         Host.CreateDefaultBuilder()
+            .UseContentRoot(AppContext.BaseDirectory)
             .UseSerilog()
             .ConfigureServices((context, services) =>
             {

@@ -8,11 +8,11 @@
       <jdbc-url>jdbc:sqlite:identifier.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="scores" uuid="45f42b02-3897-4ad3-91ad-128e3b16bab0">
+    <data-source source="LOCAL" name="scores" uuid="bc37a334-6413-499f-b06d-61ceedd0e22e">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/NinetyOneAssessment.Core/scores.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/scores.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

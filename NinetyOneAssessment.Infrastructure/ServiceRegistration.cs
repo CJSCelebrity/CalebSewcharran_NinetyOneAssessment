@@ -13,7 +13,8 @@ public static class ServiceRegistration
         IConfiguration configuration)
     {
         services.AddDbContext<ScoresDbContext>(options =>
-            options.UseSqlite(configuration.GetConnectionString("ScoresDatabase")));
+            options.UseSqlite(SqliteConnectionStringResolver.Resolve(
+                configuration.GetConnectionString(SqliteConnectionStringResolver.ConnectionStringName))));
         services.AddScoped<IPersonRepository, PersonRepository>();
         
         return services;
