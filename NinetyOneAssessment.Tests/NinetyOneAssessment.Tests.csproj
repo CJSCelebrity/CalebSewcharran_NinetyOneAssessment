@@ -20,4 +20,8 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\NinetyOneAssessment.Application\NinetyOneAssessment.Application.csproj" />
+    </ItemGroup>
+
 </Project>

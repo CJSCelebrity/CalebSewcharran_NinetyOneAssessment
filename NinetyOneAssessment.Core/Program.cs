@@ -8,7 +8,6 @@ using Serilog;
 
 
 /*
- * Resolve refactoring issues
  * Add in Db commands and calls
  * Add in minimal api endpoints
  * Update design docs

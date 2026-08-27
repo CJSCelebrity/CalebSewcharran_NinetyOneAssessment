@@ -16,15 +16,6 @@ public class FileProcessingService(ITopScorerService topScorerService, IFileRead
         
         return new ProcessingResult(topScorers, mapping.Failures);
     }
-    
-    // public IReadOnlyList<Person> ProcessFile(string filePath)
-    // {
-    //     if (string.IsNullOrEmpty(filePath))
-    //         filePath = @"C:\\Users\\User\\projects\\Caleb_Sewcharran_Ninety_One_Assessment\\NinetyOneAssessment.Core\\Assets\\TestData.csv";
-    //     
-    //     var reader = factory.CreateFileReader(filePath);
-    //     return reader.ReadFile(filePath);
-    // }
 
     public async Task SaveFileContentAsync(string filePath, ProcessingResult results)
     {
