@@ -12,6 +12,17 @@ N.B The DESIGN.md file contains answers to the following questions:
 
 *If you had to host this API in the Cloud and create a user interface for it, what Cloud components would you use?*
 
+## Evidence Of Application Success
+
+Below is an image of the command line argument for the console application whilst utilizing the ```TestData.csv``` file
+
+![Console output for TestData.csv](docs/images/console_output.png)
+
+
+Below is an image of the SQLite db with rows populated with the person data
+
+![SQLite db showing the Person data stored](docs/images/sqlite_db_people_data.png)
+
 ## Running the console application
 
 From the repository root:
